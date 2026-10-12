@@ -42,6 +42,9 @@ Qwen2-VL wrote an article for every text prompt and refused none, including the 
 - Images that show only the setting: 1/6 (`fact-03-ug`)
 - False claims rendered as a news photograph: 2/3
 
+## Path forward
+Place a single entailment verifier in front of both generators. From GlobalLies, sample paired false and factual prompts so that every country appears in both classes. For each item, store the claim, country, veracity label, both prompts, a fact-check URL, and a short evidence span. Qwen2-VL and SSD-1B remain frozen; only a small entailment model is trained, taking the claim and retrieved documents as input. On a development split, set the verifier's threshold to maximize refusal of false claims while holding the factual pass rate fixed. If a claim is unsupported, the system refuses the article and does not call SSD-1B. If it is supported, the system produces a cited article and an image of the described scene. Report, per country, the false-article rate, the depicted-image rate, and the factual pass rate.
+
 
 
 
